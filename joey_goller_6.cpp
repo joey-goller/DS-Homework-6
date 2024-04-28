@@ -1,41 +1,92 @@
+/* Joey Goller Data Structures Homework 6 */
+
+#include <iostream>
+#include <unordered_map>
+#include <vector>
 #include <queue>
 #include <stack>
-#include <iostream>
+#include <unordered_set>
+#include <deque>
 
 using namespace std;
 
-class Node {
-    public:
-        char letter;
-        Node* path1;
-        Node* path2;
-        Node* path3;
+class givenGraph {
+private:
+    unordered_map<string, vector<string>> graph;
 
-        Node(char letter) : letter(letter), path1(nullptr), path2(nullptr), path3(nullptr) {}
-};
+public:
+    givenGraph() { // Instantiating Graph
+        graph["A"] = {"B", "C", "D"};
+        graph["B"] = {"E"};
+        graph["C"] = {"B", "G"};
+        graph["D"] = {"C", "G"};
+        graph["E"] = {"C", "F"};
+        graph["F"] = {"C", "H"};
+        graph["G"] = {"F", "H", "I"};
+        graph["H"] = {"E", "I"};
+        graph["I"] = {"F"};
+    }
 
-class Tree {
-    Node* A;
-    Node* B;
-    Node* C;
-    Node* D;
-    Node* E;
-    Node* F;
-    Node* G;
-    Node* H;
-    Node* I;
+    void depthFirstSearch(string start) { // Depth-First
+        unordered_set<string> visited;
+        stack<string> stack;
+        stack.push(start);
 
-    // A->path1 = *B; A->path2 = C; A->path3 = D;
-    // B->path1 = E;
-    // C->path1 = B; C->path2 = G;
-    // D->path1 = C; D->path2 = G;
-    // E->path1 = C; E->path2 = F;
-    // F->path1 = C; F->path2 = H;
-    // G->path1 = F; G->path2 = H; G->path3 = I;
-    // H->path1 = E; H->path2 = I;
-    // I->path1 = F;
+        while (!stack.empty()) {
+            string node = stack.top();
+            stack.pop();
+            if (visited.find(node) == visited.end()) {
+                visited.insert(node);
+                cout << node << " ";
 
-        
+                for (const string &neighbor : graph[node]) {
+                    stack.push(neighbor);
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    void breadthFirstSearch(string start, string end) { // Breadth-First
+        unordered_set<string> visited;
+        queue<string> queue;
+        unordered_map<string, string> previous;
+        queue.push(start);
+        visited.insert(start);
+
+        while (!queue.empty()) {
+            string node = queue.front();
+            queue.pop();
+            if (node == end) {
+                printPath(end, previous);
+                return;
+            }
+
+            for (const string &neighbor : graph[node]) {
+                if (visited.find(neighbor) == visited.end()) {
+                    visited.insert(neighbor);
+                    previous[neighbor] = node;
+                    queue.push(neighbor);
+                }
+            }
+        }
+        cout << "No path found from " << start << " to " << end << endl;
+    }
+
+private:
+    void printPath(string current, unordered_map<string, string> &previous) {
+        deque<string> path;
+        while (!current.empty()) {
+            path.push_front(current);
+            current = previous[current];
+        }
+
+        while (!path.empty()) {
+            cout << path.front() << " ";
+            path.pop_front();
+        }
+        cout << endl;
+    }
 };
 
 void menu() { // Menu for Program
@@ -45,24 +96,36 @@ void menu() { // Menu for Program
     cout << "                   Choose? ";
 }
 
-int main () {
-    int userChoice;
+int main() {
+    givenGraph graphSearch;
 
     while (true) {
         menu();
-        cin >> userChoice;
+        int input = -1;
+        string dfsStart;
+        string bfsStart;
+        string bfsEnd;
 
-        switch (userChoice) {
+        switch (input) {
             case 0:
-                cout << "DFS" << endl;
+                cin >> dfsStart;
+                graphSearch.depthFirstSearch(dfsStart);
                 break;
+
             case 1:
-                cout << "MPS" << endl;
+                cin >> bfsStart >> bfsEnd;
+                graphSearch.breadthFirstSearch(bfsStart, bfsEnd);
                 break;
+
             case 3:
                 cout << "Exiting..." << endl;
                 return 0;
+
+            default:
+                cout << "Invalid input" << endl;
+                break;
         }
     }
+
     return 0;
 }
