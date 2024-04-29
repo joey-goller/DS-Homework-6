@@ -101,12 +101,14 @@ int main() {
 
     while (true) {
         menu();
-        int input = -1;
+        int userChoice;
         string dfsStart;
         string bfsStart;
         string bfsEnd;
 
-        switch (input) {
+        cin >> userChoice;
+
+        switch (userChoice) {
             case 0:
                 cin >> dfsStart;
                 graphSearch.depthFirstSearch(dfsStart);
