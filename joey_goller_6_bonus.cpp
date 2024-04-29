@@ -65,77 +65,73 @@ void shellSort(vector<int>& array) {
     }
 }
 
-int main() {
-    vector<int> myArray = {9, 7, 6, 15, 16, 5, 10, 11};
-    vector<int> tempArray;
-
-    cout << "HW#6 Bonus, by Jacob Riley" << endl;
+void menu() { // Menu for Program
+    cout << "                   M E N U" << endl;
     cout << "Input Data  (0), Insertion Sort (1), Selection Sort (2)" << endl;
-    cout << "Bubble Sort (3), Shell Sort     (4), Exit Program   (5)" << endl;
-    
-    int input = -1;
-    string input2;
+    cout << "Bubble Sort (3), Shell Sort (4), Exit Program (5)" << endl;
+    cout << "                   Choose? ";
+}
+
+int main() {
+    vector<int> storedArray;
+    vector<int> tempArray;
+    string userData;
+    int userChoice;
 
     while (true) {
-        input = -1;
-        cout << "Select an option: ";
-        cin >> input;
+        menu();
+        cin >> userChoice;
 
-        switch (input) {
+        switch (userChoice) {
             case 0: {
-                cout << "Enter the array below: ";
-                getline(cin >> ws, input2);
-                istringstream iss(input2);
+                getline(cin >> ws, userData);
+                istringstream iss(userData);
                 vector<int> myNumbers;
                 int number;
                 while (iss >> number) {
                     myNumbers.push_back(number);
                 }
-                myArray = myNumbers;
+                storedArray = myNumbers;
                 break;
             }
             case 1:
-                tempArray = myArray;
+                tempArray = storedArray;
                 insertionSort(tempArray);
-                cout << "Sorted with Insertion Sort: ";
                 for (int num : tempArray)
                     cout << num << " ";
                 cout << endl;
                 break;
 
             case 2:
-                tempArray = myArray;
+                tempArray = storedArray;
                 selectionSort(tempArray);
-                cout << "Sorted with Selection Sort: ";
                 for (int num : tempArray)
                     cout << num << " ";
                 cout << endl;
                 break;
 
             case 3:
-                tempArray = myArray;
+                tempArray = storedArray;
                 bubbleSort(tempArray);
-                cout << "Sorted with Bubble Sort: ";
                 for (int num : tempArray)
                     cout << num << " ";
                 cout << endl;
                 break;
 
             case 4:
-                tempArray = myArray;
+                tempArray = storedArray;
                 shellSort(tempArray);
-                cout << "Sorted with Shell Sort: ";
                 for (int num : tempArray)
                     cout << num << " ";
                 cout << endl;
                 break;
 
             case 5:
-                cout << "Exiting program" << endl;
+                cout << "Exiting..." << endl;
                 return 0;
 
             default:
-                cout << input << " is not a valid option" << endl;
+                cout << "Invalid option" << endl;
                 break;
         }
     }
