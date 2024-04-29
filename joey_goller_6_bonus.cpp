@@ -1,3 +1,4 @@
+/* Joey Goller Homework 6 Bonus */
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -5,8 +6,7 @@
 
 using namespace std;
 
-// Insertion Sort
-void insertionSort(vector<int>& array) {
+void insertionSort(vector<int>& array) { // Insertion Sort
     int n = array.size();
     for (int j = 1; j < n; j++) {
         int key = array[j];
@@ -19,8 +19,7 @@ void insertionSort(vector<int>& array) {
     }
 }
 
-// Selection Sort
-void selectionSort(vector<int>& array) {
+void selectionSort(vector<int>& array) { // Selection Sort
     for (int i = 0; i < array.size() - 1; i++) {
         int index = i;
         for (int j = i + 1; j < array.size(); j++) {
@@ -34,8 +33,7 @@ void selectionSort(vector<int>& array) {
     }
 }
 
-// Bubble Sort
-void bubbleSort(vector<int>& array) {
+void bubbleSort(vector<int>& array) { // Bubble Sort
     int n = array.size();
     int temp = 0;
     for (int i = 0; i < n; i++) {
@@ -49,8 +47,7 @@ void bubbleSort(vector<int>& array) {
     }
 }
 
-// Shell Sort
-void shellSort(vector<int>& array) {
+void shellSort(vector<int>& array) { // Shell Sort
     int n = array.size();
 
     for (int gap = n / 2; gap > 0; gap /= 2) {
@@ -83,7 +80,7 @@ int main() {
         cin >> userChoice;
 
         switch (userChoice) {
-            case 0: {
+            case 0: { // Input Data
                 getline(cin >> ws, userData);
                 istringstream iss(userData);
                 vector<int> myNumbers;
@@ -94,7 +91,7 @@ int main() {
                 storedArray = myNumbers;
                 break;
             }
-            case 1:
+            case 1: // Insertion Sort
                 tempArray = storedArray;
                 insertionSort(tempArray);
                 for (int num : tempArray)
@@ -102,7 +99,7 @@ int main() {
                 cout << endl;
                 break;
 
-            case 2:
+            case 2: // Selection Sort
                 tempArray = storedArray;
                 selectionSort(tempArray);
                 for (int num : tempArray)
@@ -110,7 +107,7 @@ int main() {
                 cout << endl;
                 break;
 
-            case 3:
+            case 3: // Bubble Sort
                 tempArray = storedArray;
                 bubbleSort(tempArray);
                 for (int num : tempArray)
@@ -118,7 +115,7 @@ int main() {
                 cout << endl;
                 break;
 
-            case 4:
+            case 4: // Shell Sort
                 tempArray = storedArray;
                 shellSort(tempArray);
                 for (int num : tempArray)
@@ -126,7 +123,7 @@ int main() {
                 cout << endl;
                 break;
 
-            case 5:
+            case 5: // Exit Program
                 cout << "Exiting..." << endl;
                 return 0;
 

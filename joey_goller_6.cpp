@@ -27,7 +27,7 @@ public:
         graph["I"] = {"F"};
     }
 
-    void depthFirstSearch(string start) { // Depth-First
+    void depthFirstSearch(string start) { // Depth-First Search Algorithm
         unordered_set<string> visited;
         stack<string> stack;
         stack.push(start);
@@ -47,7 +47,7 @@ public:
         cout << endl;
     }
 
-    void breadthFirstSearch(string start, string end) { // Breadth-First
+    void breadthFirstSearch(string start, string end) { // Breadth-First Search Algorithm
         unordered_set<string> visited;
         queue<string> queue;
         unordered_map<string, string> previous;
